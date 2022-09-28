@@ -20,7 +20,7 @@ const notifyMeDetails = async function (req, res) {
         if (!(/^[A-Za-z ]+$/.test(fullName)) || !(/^\d{10}$/).test(phone) || !(/^\d{6}$/).test(userID)) {
             return res.status(400).send({ msg:handler.err2 })
         }
-        const duplicate = await notifyModel.find({ $and: [{ ArticleID: articleID }, { userID: userID }] })
+        const duplicate = await notifyModel.find({ $and: [{ articleID: articleID }, { userID: userID }] })
         if (duplicate.length > 0) {
             return res.status(400).send({ msg: handler.err3 })
         } else {
@@ -42,7 +42,7 @@ const getUserByUserID = async function (req, res) {
         const getDetails = await notifyModel.find({ userID: userID }).select({ articleName: 1, articleID: 1 })
         //If no users found in notifymeModel
         if (getDetails.length === 0) {
-            return res.status(404).send({ msg:handler.err4 });
+            return res.status(404).send({ msg:handler.err5 });
         }
         return res.status(200).send({ data: getDetails });
 
