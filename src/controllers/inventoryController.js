@@ -35,8 +35,10 @@ const inventoryData = async function (req, res) {
 
 
 //========================Node-schedule========================================================//
-var dbDoc = []
-const x= async function data(){
+
+
+   var dbDoc = []
+   const x= async function data(){
     const result =  await inventoryModel.find({availableQty:{$gt:1}})
        result.map((d,y)=> {
           dbDoc.push(d.articleID)
@@ -44,16 +46,16 @@ const x= async function data(){
     
      await notifyModel.find({articleID:{$in:dbDoc}}).select({fullName:1, phon:1, email:1,userID:1,articleID:1, _id:0})
         .then(data => {
-            console.log(data)
+           console.log(data)
         })
         .catch(error => {
             console.log(error)
-        })
-    }
+       })
+   }
 
-schedule.scheduleJob('*/10 * * * * *', async function(){
+   schedule.scheduleJob('*/10 * * * * *',  function(){
      console.log(x())
-})
+    })
 
 
 
