@@ -1,0 +1,28 @@
+
+ {
+  "DATA_ALREADY_EXIST": {
+    "code": "DATA_ALREADY_EXIST",
+    "message": "The given data  already EXist in Databse:(",
+    "statusCode": 400
+  },
+  "SERVER_ERROR": {
+    "code": "INTERNAL_SERVER_ERROR",
+    "message": "somthing wrong please try again",
+    "statusCode": 500
+  },
+  "RESOURCE_NOT_FOUND": {
+    "code": "RESOURCE_NOT_FOUND",
+    "message": "Resource not found",
+    "statusCode": 404
+  },
+  "BAD_REQUEST": {
+    "code": "BAD_REQUEST",
+    "message": "feilds details required",
+    "statusCode": 400
+  },
+  "INVALID_INPUT": {
+    "code": "INVALID_INPUT",
+    "message": "WRONG CREDENTIALS !!",
+    "statusCode": 400
+}
+ }

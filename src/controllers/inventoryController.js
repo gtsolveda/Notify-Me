@@ -1,13 +1,10 @@
 const schedule = require("node-schedule")
 const notifyModel = require("../models/notifyModel")
 const inventoryModel = require("../models/inventoryModel")
-const handler = require("../Error/config.json")
+//const handler = require("../config/config.json")
+//const Errors = require("./error.json");
 
-const isValid = function (value) {
-    if (typeof value === 'undefined' || value === null) return false
-    if (typeof value === 'string' && value.trim().length === 0) return false
-    return true;
-}
+
 
 //===========================inventory post Api========================================/////////
 
@@ -15,17 +12,14 @@ const inventoryData = async function (req, res) {
     try {
         const data = req.body
         const {articleName, articleID, availableQty} = data
-        if (!(isValid(articleName)) || !(isValid(articleID)) || !(isValid(availableQty))) {
-            return res.status(400).send({ msg: handler.err1 })
-        }
         const duplicate = await inventoryModel.find({$and:[{ articleID: articleID },{articleName:articleName}]})
         if (duplicate.length > 0) {
             const details = await inventoryModel.findOneAndUpdate({articleID:articleID},{$inc:{availableQty:+availableQty}},{new:true})
-           return res.status(200).send({ msg: handler.status1, data:details })
+           return res.status(200).send({data:details})
         } else {
 
             const savedData = await inventoryModel.create(data)
-            return res.status(201).send({ message:handler.status2, data:savedData })
+            return res.status(201).send({data:savedData })
         }
     } catch (err) {
         console.log("This is the error :", err.message)
@@ -39,7 +33,7 @@ const inventoryData = async function (req, res) {
 
    var dbDoc = []
    const x= async function data(){
-    const result =  await inventoryModel.find({availableQty:{$gt:1}})
+    const result =  await inventoryModel.find({availableQty:{$gt:0}})
        result.map((d,y)=> {
           dbDoc.push(d.articleID)
         })
@@ -53,9 +47,9 @@ const inventoryData = async function (req, res) {
        })
    }
 
-   schedule.scheduleJob('*/10 * * * * *',  function(){
-     console.log(x())
-    })
+  // schedule.scheduleJob('*/10 * * * * *',  function(){
+    // console.log(x())
+   // })
 
 
 

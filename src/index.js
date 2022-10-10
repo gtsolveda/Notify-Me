@@ -1,3 +1,5 @@
+const path = require('path')
+require('dotenv').config({path: '../.env'})
 const express = require("express")
 const bodyParser = require("body-parser")
 const route = require("./routes/route")
@@ -9,8 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-mongoose.connect("mongodb+srv://gtsolveda:vFZkI74xbh8wFixZ@cluster0.vke5zuw.mongodb.net/Solveda-Databse", {
+mongoose.connect(process.env.DATABASE_URL,{
     useNewUrlParser: true
 }).then(() => console.log("MongoDB Is Connected !!!")).catch(err => console.log(err))
 
