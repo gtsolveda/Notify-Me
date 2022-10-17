@@ -8,8 +8,6 @@ const { json } = require("express");
 const client = redis.createClient()
  client.connect()
 
-//const redisUrl = 'redis://127.0.0.1:6379'
-//const client = redis.createClient(redisUrl)
 client.on("error",(error)=>{
     console.error("Error encounterd",error)
 })
